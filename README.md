@@ -1,28 +1,23 @@
-<style>
-    .about-me {
-        position: relative;
-        padding: 20px;
-        font-family: Arial, sans-serif;
-    }
-
-    .about-me::before {
-        content: "";
-        background: url('kani.jpg') no-repeat center center;
-        background-size: cover;
-        opacity: 0.6; /* 60% opacity */
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: -1;
-    }
-</style>
-
-<div class="about-me">
-    # 💫 About Me:
-    🦀 Why crab? Because it's cute. <br>I'm interested in PHP, Python, HTML, and CSS to learn more about. <br>🍰 I like sweet foods like crepes, dorayaki, soufflé pancakes, etc.<br>🐚You can ask me about anything as long as I can help you with the question you ask!🐳
+<div style="
+    position: relative; 
+    padding: 20px; 
+    font-family: Arial, sans-serif; 
+    background: url('kani.png') no-repeat center center; 
+    background-size: cover; 
+    opacity: 0.6;">
+    
+    <div style="
+        position: relative; 
+        opacity: 1; /* Ensures the content isn't affected by the background opacity */
+        z-index: 1;">
+        # 💫 About Me: <br>
+        🦀 Why crab? Because it's cute. <br>
+        I'm interested in PHP, Python, HTML, and CSS to learn more about. <br>
+        🍰 I like sweet foods like crepes, dorayaki, soufflé pancakes, etc. <br>
+        🐚 You can ask me about anything as long as I can help you with the question you ask! 🐳
+    </div>
 </div>
+
 
 ## 🌐 Socials:
 [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/ripaaf_) [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/yusarinn) [![X](https://img.shields.io/badge/X-black.svg?logo=X&logoColor=white)](https://x.com/myusufrifa) 
