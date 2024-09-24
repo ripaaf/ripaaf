@@ -1,21 +1,11 @@
-<div style="
-    position: relative; 
-    padding: 20px; 
-    font-family: Arial, sans-serif; 
-    background: url('kani.png') no-repeat center center; 
-    background-size: cover; 
-    opacity: 0.6;">
-    
-    <div style="
-        position: relative; 
-        opacity: 1; /* Ensures the content isn't affected by the background opacity */
-        z-index: 1;">
-        # 💫 About Me: <br>
-        🦀 Why crab? Because it's cute. <br>
-        I'm interested in PHP, Python, HTML, and CSS to learn more about. <br>
-        🍰 I like sweet foods like crepes, dorayaki, soufflé pancakes, etc. <br>
-        🐚 You can ask me about anything as long as I can help you with the question you ask! 🐳
-    </div>
+<div style="position: relative; padding: 20px; font-family: Arial, sans-serif; background: url('kani.png') no-repeat center center; background-size: cover;opacity: 0.6;">
+<div style="position: relative;opacity: 1;z-index: 1;">
+    # 💫 About Me: <br>
+    🦀 Why crab? Because it's cute. <br>
+    I'm interested in PHP, Python, HTML, and CSS to learn more about. <br>
+    🍰 I like sweet foods like crepes, dorayaki, soufflé pancakes, etc. <br>
+    🐚 You can ask me about anything as long as I can help you with the question you ask! 🐳
+</div>
 </div>
 
 
