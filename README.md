@@ -1,6 +1,6 @@
 <div align="right">
   <a href="https://visitcount.itsvg.in">
-    <img src="https://visitcount.itsvg.in/api?id=ripaaf&icon=0&color=5" alt="Visit Count" />
+    <img src="https://visitcount.itsvg.in/api?id=ripaaf&label=viewer&color=5&icon=6&pretty=true" alt="Visitor" />
   </a>
 </div>
 <h1 align="center">💫 About Me</h1>
