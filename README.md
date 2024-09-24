@@ -14,18 +14,12 @@
 
 <h1 align="center">📊 GitHub Stats</h1>
 <div style="display:flex;flex-direction:row;">
-<a>
-  
-  ![](https://github-readme-stats.vercel.app/api?username=ripaaf&theme=radical&hide_border=false&include_all_commits=false&count_private=false)<br/>
-</a>
-<a>
+
+<img src="https://github-readme-stats.vercel.app/api?username=ripaaf&theme=radical&hide_border=false&include_all_commits=false&count_private=false"><br/>
 
 ![](https://github-readme-streak-stats.herokuapp.com/?user=ripaaf&theme=radical&hide_border=false)<br/>
-</a>
-<a>
-
 ![](https://github-readme-stats.vercel.app/api/top-langs/?username=ripaaf&theme=radical&hide_border=false&include_all_commits=false&count_private=false&layout=compact)
-</a>
+
 </div>
 
 ### 🔝 Top Contributed Repo
