@@ -30,7 +30,7 @@
 
   <h2 align="center">💰 You can help me by Donating</h2>
 
-<div style="text-align: center;">
+<div style="text-align: center;display:flex;align-items:center;justify-content:center;">
   <a href="https://buymeacoffee.com/yusarinn">
     <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="BuyMeACoffee" />
   </a>
