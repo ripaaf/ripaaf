@@ -1,5 +1,5 @@
 <h1 align="center">💫 About Me</h1>
-🦀 Why crab? Because it's cute. <br>I'm interested in PHP, Python, HTML, and CSS to learn more about. <br>🍰 I like sweet foods like crepes, dorayaki, soufflé pancakes, etc.<br>🐚You can ask me about anything as long as I can help you with the question you ask!🐳
+🦀 Why crab? Because it's cute. <br>🕹️I'm interested in PHP, Python, HTML, and CSS to learn more about. <br>🍰 I like sweet foods like crepes, dorayaki, soufflé pancakes, etc.<br>🐚You can ask me about anything as long as I can help you with the question you ask!🐳
 
 <img src=kanio.png>
 <div align="center"> 
