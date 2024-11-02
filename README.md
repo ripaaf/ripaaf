@@ -31,9 +31,11 @@
 
 <div align="center" style="text-align:center;display:flex;align-items:center;justify-content:center;">
 
-<a href="https://www.buymeacoffee.com/yusarinn" target="_blank" style="background-color: #FF5F5F; color: #ffffff; padding: 10px 20px; text-decoration: none; border: 2px solid #000000; font-family: Comic Sans MS; font-weight: bold; border-radius: 5px;">
+<a href="https://www.buymeacoffee.com/yusarinn" target="_blank" style="display: inline-flex; align-items: center; background-color: #FF5F5F; color: #ffffff; padding: 10px 20px; text-decoration: none; border: 2px solid #000000; font-family: Comic Sans MS; font-weight: bold; border-radius: 5px;">
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy me a crab" style="height: 30px; margin-right: 8px;">
     🦀 Buy me a crab
 </a>
+
 
 </div>
 </br>
