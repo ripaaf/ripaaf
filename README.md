@@ -30,8 +30,11 @@
   <h2 align="center">💰 You can help me by Donating</h2>
 
 <div align="center" style="text-align:center;display:flex;align-items:center;justify-content:center;">
+  <a href="https://www.buymeacoffee.com/yusarinn" target="_blank" style="background-color: #FF5F5F; color: #ffffff; padding: 10px 20px; text-decoration: none; border: 2px solid #000000; font-family: Comic Sans MS; font-weight: bold; border-radius: 5px;">
+      🦀 Buy me a crab
+  </a>
   <a href="https://buymeacoffee.com/yusarinn">
-<!--     <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="yusarinn" data-color="#FF5F5F" data-emoji="🦀"  data-font="Comic" data-text="Buy me a crab" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script> -->
+
     <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffe&logoColor=black" alt="BuyMeACoffee" />
   </a>
 </div>
