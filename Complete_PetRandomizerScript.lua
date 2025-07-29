@@ -201,7 +201,7 @@ Instance.new("UICorner", randomBtn).CornerRadius = UDim.new(0, 10)
 randomBtn.MouseButton1Click:Connect(function()
     if countdown <= 0 then
         randomizeEggs()
-        countdown = 5
+        countdown = 5 -- now using 5 seconds
     end
 end)
 
@@ -223,13 +223,8 @@ espBtn.MouseButton1Click:Connect(function()
         clearESP(egg)
         if ESP_ENABLED then
             local pets = petChances[egg.Name]
-            local pet
             local lockedPet = LOCKED_EGGS[egg.Name]
-            if lockedPet then
-                pet = lockedPet
-            else
-                pet = pets and pets[math.random(1, #pets)] or "?"
-            end
+            local pet = (lockedPet or (pets and pets[math.random(1, #pets)] or "?"))
             showPetESP(egg, egg.Name .. " → " .. pet)
         end
     end
@@ -243,7 +238,7 @@ autoLabel.BackgroundTransparency = 1
 autoLabel.TextColor3 = Color3.fromRGB(255, 255, 100)
 autoLabel.Font = Enum.Font.GothamBold
 autoLabel.TextSize = 14
-autoLabel.Text = "🔁 Auto Random: Every 5s"
+autoLabel.Text = "🔁 Auto Random: Every 5s" -- updated for 5 seconds
 
 local timerLabel = Instance.new("TextLabel", frame)
 timerLabel.Size = UDim2.new(1, -20, 0, 25)
@@ -318,13 +313,19 @@ lockBtn.TextSize = 13
 lockBtn.Text = "Lock"
 Instance.new("UICorner", lockBtn).CornerRadius = UDim.new(0, 4)
 
--- Dropdown logic
+-- Dropdown logic (menus now remain until a choice is made)
 local selectedEgg, selectedPet = nil, nil
 
 local function showEggMenu()
     local menu = Instance.new("Frame", frame)
-    menu.Size = UDim2.new(0, 100, 0, 18 * #petChances)
-    menu.Position = UDim2.new(0, lockFrame.Position.X.Offset + eggDropdown.Position.X.Offset, 0, lockFrame.Position.Y.Offset + eggDropdown.Position.Y.Offset + 22)
+    menu.Name = "EggMenu"
+    menu.Size = UDim2.new(0, 100, 0, 18 * (#(function() 
+        local arr = {}
+        for k in pairs(petChances) do table.insert(arr, k) end
+        table.sort(arr)
+        return arr
+    end)()))
+    menu.Position = UDim2.new(0, lockFrame.AbsolutePosition.X + eggDropdown.AbsolutePosition.X, 0, lockFrame.AbsolutePosition.Y + eggDropdown.AbsolutePosition.Y + 22)
     menu.BackgroundColor3 = Color3.fromRGB(30,30,40)
     menu.BorderSizePixel = 0
     for i, eggName in ipairs((function()
@@ -349,8 +350,6 @@ local function showEggMenu()
             menu:Destroy()
         end)
     end
-    menu.ZIndex = 15
-    eggDropdown.MouseLeave:Connect(function() menu:Destroy() end)
 end
 
 local function showPetMenu()
@@ -358,8 +357,9 @@ local function showPetMenu()
     local pets = petChances[selectedEgg]
     if not pets then return end
     local menu = Instance.new("Frame", frame)
+    menu.Name = "PetMenu"
     menu.Size = UDim2.new(0, 100, 0, 18 * #pets)
-    menu.Position = UDim2.new(0, lockFrame.Position.X.Offset + petDropdown.Position.X.Offset, 0, lockFrame.Position.Y.Offset + petDropdown.Position.Y.Offset + 22)
+    menu.Position = UDim2.new(0, lockFrame.AbsolutePosition.X + petDropdown.AbsolutePosition.X, 0, lockFrame.AbsolutePosition.Y + petDropdown.AbsolutePosition.Y + 22)
     menu.BackgroundColor3 = Color3.fromRGB(30,30,40)
     menu.BorderSizePixel = 0
     for i, petName in ipairs(pets) do
@@ -377,8 +377,6 @@ local function showPetMenu()
             menu:Destroy()
         end)
     end
-    menu.ZIndex = 15
-    petDropdown.MouseLeave:Connect(function() menu:Destroy() end)
 end
 
 eggDropdown.MouseButton1Click:Connect(showEggMenu)
@@ -388,6 +386,12 @@ lockBtn.MouseButton1Click:Connect(function()
     if selectedEgg and selectedPet then
         LOCKED_EGGS[selectedEgg] = selectedPet
         lockBtn.Text = "Locked!"
+        -- Immediately update ESP for the locked egg
+        for _, egg in ipairs(getNearbyEggs()) do
+            if egg.Name == selectedEgg then
+                showPetESP(egg, egg.Name .. " → " .. selectedPet)
+            end
+        end
         task.wait(1)
         lockBtn.Text = "Lock"
     elseif selectedEgg then
@@ -398,21 +402,11 @@ lockBtn.MouseButton1Click:Connect(function()
     end
 end)
 
--- Clear ESP every second
-task.spawn(function()
-    while true do
-        for _, egg in ipairs(getNearbyEggs()) do
-            clearESP(egg)
-        end
-        task.wait(1)
-    end
-end)
-
 -- Countdown timer display
 task.spawn(function()
     while true do
         if countdown > 0 then
-            countdown -= 1
+            countdown = countdown - 1
             timerLabel.Text = "⏳ Cooldown: " .. countdown .. "s"
         else
             timerLabel.Text = "⏳ Cooldown: Ready"
