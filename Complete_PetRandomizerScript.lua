@@ -23,7 +23,8 @@ local petChances = {
 }
 
 local ESP_ENABLED = true
-local AUTO_RANDOM = false -- Default to off
+local AUTO_RANDOM = true
+local LOCKED_EGGS = {} -- [eggName] = petName or nil
 
 local divinePets = {
     ["Raccoon"] = true,
@@ -38,7 +39,7 @@ local mainGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
 mainGui.Name = "Pet Randomizer by Jmcxz"
 
 local frame = Instance.new("Frame", mainGui)
-frame.Size = UDim2.new(0, 280, 0, 270)
+frame.Size = UDim2.new(0, 320, 0, 320)
 frame.Position = UDim2.new(0, 40, 0, 100)
 frame.BackgroundColor3 = Color3.fromRGB(25, 25, 35)
 frame.BorderSizePixel = 0
@@ -172,15 +173,21 @@ local function randomizeEggs()
         clearESP(egg)
         local pets = petChances[egg.Name]
         if pets then
-            local pet = pets[math.random(1, #pets)]
+            -- Lock logic
+            local lockedPet = LOCKED_EGGS[egg.Name]
+            local pet
+            if lockedPet then
+                pet = lockedPet
+            else
+                pet = pets[math.random(1, #pets)]
+            end
             showPetESP(egg, egg.Name .. " → " .. pet)
         end
     end
 end
 
 -- RANDOM BUTTON
-local nextRandomizeTime = 0
-
+local countdown = 0
 local randomBtn = Instance.new("TextButton", frame)
 randomBtn.Size = UDim2.new(1, -20, 0, 40)
 randomBtn.Position = UDim2.new(0, 10, 0, 40)
@@ -192,10 +199,9 @@ randomBtn.Text = "🎲 Randomize Now"
 Instance.new("UICorner", randomBtn).CornerRadius = UDim.new(0, 10)
 
 randomBtn.MouseButton1Click:Connect(function()
-    local now = tick()
-    if now >= nextRandomizeTime then
+    if countdown <= 0 then
         randomizeEggs()
-        nextRandomizeTime = now + 1.5
+        countdown = 5
     end
 end)
 
@@ -217,62 +223,211 @@ espBtn.MouseButton1Click:Connect(function()
         clearESP(egg)
         if ESP_ENABLED then
             local pets = petChances[egg.Name]
-            local pet = pets and pets[math.random(1, #pets)] or "?"
+            local pet
+            local lockedPet = LOCKED_EGGS[egg.Name]
+            if lockedPet then
+                pet = lockedPet
+            else
+                pet = pets and pets[math.random(1, #pets)] or "?"
+            end
             showPetESP(egg, egg.Name .. " → " .. pet)
         end
     end
 end)
 
--- Toggle Auto-Randomizer Button
-local autoRandomBtn = Instance.new("TextButton", frame)
-autoRandomBtn.Size = UDim2.new(1, -20, 0, 30)
-autoRandomBtn.Position = UDim2.new(0, 10, 0, 130)
-autoRandomBtn.BackgroundColor3 = Color3.fromRGB(80, 120, 60)
-autoRandomBtn.TextColor3 = Color3.new(1, 1, 1)
-autoRandomBtn.Font = Enum.Font.GothamBold
-autoRandomBtn.TextSize = 15
-autoRandomBtn.Text = "🔁 Auto Random: OFF"
-Instance.new("UICorner", autoRandomBtn).CornerRadius = UDim.new(0, 8)
-
-autoRandomBtn.MouseButton1Click:Connect(function()
-    AUTO_RANDOM = not AUTO_RANDOM
-    autoRandomBtn.Text = AUTO_RANDOM and "🔁 Auto Random: ON" or "🔁 Auto Random: OFF"
-end)
+-- Auto Randomizer Labels
+local autoLabel = Instance.new("TextLabel", frame)
+autoLabel.Size = UDim2.new(1, -20, 0, 25)
+autoLabel.Position = UDim2.new(0, 10, 0, 130)
+autoLabel.BackgroundTransparency = 1
+autoLabel.TextColor3 = Color3.fromRGB(255, 255, 100)
+autoLabel.Font = Enum.Font.GothamBold
+autoLabel.TextSize = 14
+autoLabel.Text = "🔁 Auto Random: Every 5s"
 
 local timerLabel = Instance.new("TextLabel", frame)
 timerLabel.Size = UDim2.new(1, -20, 0, 25)
-timerLabel.Position = UDim2.new(0, 10, 0, 170)
+timerLabel.Position = UDim2.new(0, 10, 0, 160)
 timerLabel.BackgroundTransparency = 1
 timerLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
 timerLabel.Font = Enum.Font.GothamBold
 timerLabel.TextSize = 14
 timerLabel.Text = "⏳ Cooldown: Ready"
 
--- Countdown timer display (smooth and accurate)
-local function updateTimerLabel()
+-- STOP/START AUTO RANDOM BUTTON
+local stopBtn = Instance.new("TextButton", frame)
+stopBtn.Size = UDim2.new(1, -20, 0, 30)
+stopBtn.Position = UDim2.new(0, 10, 0, 190)
+stopBtn.BackgroundColor3 = Color3.fromRGB(150, 50, 50)
+stopBtn.TextColor3 = Color3.new(1, 1, 1)
+stopBtn.Font = Enum.Font.GothamBold
+stopBtn.TextSize = 16
+stopBtn.Text = "⏹️ Stop Auto Random"
+Instance.new("UICorner", stopBtn).CornerRadius = UDim.new(0, 8)
+
+stopBtn.MouseButton1Click:Connect(function()
+    AUTO_RANDOM = not AUTO_RANDOM
+    stopBtn.Text = AUTO_RANDOM and "⏹️ Stop Auto Random" or "▶️ Start Auto Random"
+    autoLabel.Text = AUTO_RANDOM and "🔁 Auto Random: Every 5s" or "🔁 Auto Random: OFF"
+end)
+
+-- LOCK EGG GUI
+local lockFrame = Instance.new("Frame", frame)
+lockFrame.Size = UDim2.new(1, -20, 0, 60)
+lockFrame.Position = UDim2.new(0, 10, 0, 230)
+lockFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
+lockFrame.BorderSizePixel = 0
+Instance.new("UICorner", lockFrame).CornerRadius = UDim.new(0, 6)
+
+local lockTitle = Instance.new("TextLabel", lockFrame)
+lockTitle.Size = UDim2.new(1, 0, 0, 18)
+lockTitle.Position = UDim2.new(0, 0, 0, 0)
+lockTitle.BackgroundTransparency = 1
+lockTitle.TextColor3 = Color3.fromRGB(255, 200, 130)
+lockTitle.Font = Enum.Font.GothamBold
+lockTitle.TextSize = 13
+lockTitle.Text = "🔒 Lock Egg (Choose Egg & Pet)"
+
+local eggDropdown = Instance.new("TextButton", lockFrame)
+eggDropdown.Size = UDim2.new(0.5, -5, 0, 22)
+eggDropdown.Position = UDim2.new(0, 0, 0, 20)
+eggDropdown.BackgroundColor3 = Color3.fromRGB(50, 50, 70)
+eggDropdown.TextColor3 = Color3.fromRGB(255, 255, 255)
+eggDropdown.Font = Enum.Font.Gotham
+eggDropdown.TextSize = 13
+eggDropdown.Text = "Egg"
+Instance.new("UICorner", eggDropdown).CornerRadius = UDim.new(0, 4)
+
+local petDropdown = Instance.new("TextButton", lockFrame)
+petDropdown.Size = UDim2.new(0.5, -5, 0, 22)
+petDropdown.Position = UDim2.new(0.5, 5, 0, 20)
+petDropdown.BackgroundColor3 = Color3.fromRGB(50, 50, 70)
+petDropdown.TextColor3 = Color3.fromRGB(255, 255, 255)
+petDropdown.Font = Enum.Font.Gotham
+petDropdown.TextSize = 13
+petDropdown.Text = "Pet"
+Instance.new("UICorner", petDropdown).CornerRadius = UDim.new(0, 4)
+
+local lockBtn = Instance.new("TextButton", lockFrame)
+lockBtn.Size = UDim2.new(1, 0, 0, 18)
+lockBtn.Position = UDim2.new(0, 0, 1, -18)
+lockBtn.BackgroundColor3 = Color3.fromRGB(90, 0, 150)
+lockBtn.TextColor3 = Color3.new(1, 1, 1)
+lockBtn.Font = Enum.Font.GothamBold
+lockBtn.TextSize = 13
+lockBtn.Text = "Lock"
+Instance.new("UICorner", lockBtn).CornerRadius = UDim.new(0, 4)
+
+-- Dropdown logic
+local selectedEgg, selectedPet = nil, nil
+
+local function showEggMenu()
+    local menu = Instance.new("Frame", frame)
+    menu.Size = UDim2.new(0, 100, 0, 18 * #petChances)
+    menu.Position = UDim2.new(0, lockFrame.Position.X.Offset + eggDropdown.Position.X.Offset, 0, lockFrame.Position.Y.Offset + eggDropdown.Position.Y.Offset + 22)
+    menu.BackgroundColor3 = Color3.fromRGB(30,30,40)
+    menu.BorderSizePixel = 0
+    for i, eggName in ipairs((function()
+        local arr = {}
+        for k in pairs(petChances) do table.insert(arr, k) end
+        table.sort(arr)
+        return arr
+    end)()) do
+        local btn = Instance.new("TextButton", menu)
+        btn.Size = UDim2.new(1, 0, 0, 18)
+        btn.Position = UDim2.new(0, 0, 0, (i-1)*18)
+        btn.BackgroundColor3 = Color3.fromRGB(50,50,70)
+        btn.TextColor3 = Color3.fromRGB(255,255,255)
+        btn.Font = Enum.Font.Gotham
+        btn.TextSize = 12
+        btn.Text = eggName
+        btn.MouseButton1Click:Connect(function()
+            selectedEgg = eggName
+            eggDropdown.Text = eggName
+            selectedPet = nil
+            petDropdown.Text = "Pet"
+            menu:Destroy()
+        end)
+    end
+    menu.ZIndex = 15
+    eggDropdown.MouseLeave:Connect(function() menu:Destroy() end)
+end
+
+local function showPetMenu()
+    if not selectedEgg then return end
+    local pets = petChances[selectedEgg]
+    if not pets then return end
+    local menu = Instance.new("Frame", frame)
+    menu.Size = UDim2.new(0, 100, 0, 18 * #pets)
+    menu.Position = UDim2.new(0, lockFrame.Position.X.Offset + petDropdown.Position.X.Offset, 0, lockFrame.Position.Y.Offset + petDropdown.Position.Y.Offset + 22)
+    menu.BackgroundColor3 = Color3.fromRGB(30,30,40)
+    menu.BorderSizePixel = 0
+    for i, petName in ipairs(pets) do
+        local btn = Instance.new("TextButton", menu)
+        btn.Size = UDim2.new(1, 0, 0, 18)
+        btn.Position = UDim2.new(0, 0, 0, (i-1)*18)
+        btn.BackgroundColor3 = Color3.fromRGB(50,50,70)
+        btn.TextColor3 = Color3.fromRGB(255,255,255)
+        btn.Font = Enum.Font.Gotham
+        btn.TextSize = 12
+        btn.Text = petName
+        btn.MouseButton1Click:Connect(function()
+            selectedPet = petName
+            petDropdown.Text = petName
+            menu:Destroy()
+        end)
+    end
+    menu.ZIndex = 15
+    petDropdown.MouseLeave:Connect(function() menu:Destroy() end)
+end
+
+eggDropdown.MouseButton1Click:Connect(showEggMenu)
+petDropdown.MouseButton1Click:Connect(showPetMenu)
+
+lockBtn.MouseButton1Click:Connect(function()
+    if selectedEgg and selectedPet then
+        LOCKED_EGGS[selectedEgg] = selectedPet
+        lockBtn.Text = "Locked!"
+        task.wait(1)
+        lockBtn.Text = "Lock"
+    elseif selectedEgg then
+        LOCKED_EGGS[selectedEgg] = nil
+        lockBtn.Text = "Unlocked!"
+        task.wait(1)
+        lockBtn.Text = "Lock"
+    end
+end)
+
+-- Clear ESP every second
+task.spawn(function()
     while true do
-        local now = tick()
-        local timeLeft = math.max(nextRandomizeTime - now, 0)
-        if timeLeft > 0 then
-            timerLabel.Text = string.format("⏳ Cooldown: %.1fs", timeLeft)
+        for _, egg in ipairs(getNearbyEggs()) do
+            clearESP(egg)
+        end
+        task.wait(1)
+    end
+end)
+
+-- Countdown timer display
+task.spawn(function()
+    while true do
+        if countdown > 0 then
+            countdown -= 1
+            timerLabel.Text = "⏳ Cooldown: " .. countdown .. "s"
         else
             timerLabel.Text = "⏳ Cooldown: Ready"
         end
-        task.wait(0.05)
+        task.wait(1)
     end
-end
-task.spawn(updateTimerLabel)
+end)
 
--- Auto-random every 1.5s, using timestamps
+-- Auto-random every 5s
 task.spawn(function()
     while true do
         if AUTO_RANDOM then
-            local now = tick()
-            if now >= nextRandomizeTime then
-                randomizeEggs()
-                nextRandomizeTime = now + 1.5
-            end
+            randomizeEggs()
+            countdown = 5
         end
-        task.wait(0.1)
+        task.wait(5)
     end
 end)
