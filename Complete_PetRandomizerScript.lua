@@ -23,7 +23,7 @@ local petChances = {
 }
 
 local ESP_ENABLED = true
-local AUTO_RANDOM = true
+local AUTO_RANDOM = false -- Default to off
 
 local divinePets = {
     ["Raccoon"] = true,
@@ -38,7 +38,7 @@ local mainGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
 mainGui.Name = "Pet Randomizer by Jmcxz"
 
 local frame = Instance.new("Frame", mainGui)
-frame.Size = UDim2.new(0, 280, 0, 240)
+frame.Size = UDim2.new(0, 280, 0, 270)
 frame.Position = UDim2.new(0, 40, 0, 100)
 frame.BackgroundColor3 = Color3.fromRGB(25, 25, 35)
 frame.BorderSizePixel = 0
@@ -195,7 +195,7 @@ randomBtn.MouseButton1Click:Connect(function()
     local now = tick()
     if now >= nextRandomizeTime then
         randomizeEggs()
-        nextRandomizeTime = now + 22
+        nextRandomizeTime = now + 1.5
     end
 end)
 
@@ -223,19 +223,25 @@ espBtn.MouseButton1Click:Connect(function()
     end
 end)
 
--- Auto Randomizer Labels
-local autoLabel = Instance.new("TextLabel", frame)
-autoLabel.Size = UDim2.new(1, -20, 0, 25)
-autoLabel.Position = UDim2.new(0, 10, 0, 130)
-autoLabel.BackgroundTransparency = 1
-autoLabel.TextColor3 = Color3.fromRGB(255, 255, 100)
-autoLabel.Font = Enum.Font.GothamBold
-autoLabel.TextSize = 14
-autoLabel.Text = "🔁 Auto Random: Every 22s"
+-- Toggle Auto-Randomizer Button
+local autoRandomBtn = Instance.new("TextButton", frame)
+autoRandomBtn.Size = UDim2.new(1, -20, 0, 30)
+autoRandomBtn.Position = UDim2.new(0, 10, 0, 130)
+autoRandomBtn.BackgroundColor3 = Color3.fromRGB(80, 120, 60)
+autoRandomBtn.TextColor3 = Color3.new(1, 1, 1)
+autoRandomBtn.Font = Enum.Font.GothamBold
+autoRandomBtn.TextSize = 15
+autoRandomBtn.Text = "🔁 Auto Random: OFF"
+Instance.new("UICorner", autoRandomBtn).CornerRadius = UDim.new(0, 8)
+
+autoRandomBtn.MouseButton1Click:Connect(function()
+    AUTO_RANDOM = not AUTO_RANDOM
+    autoRandomBtn.Text = AUTO_RANDOM and "🔁 Auto Random: ON" or "🔁 Auto Random: OFF"
+end)
 
 local timerLabel = Instance.new("TextLabel", frame)
 timerLabel.Size = UDim2.new(1, -20, 0, 25)
-timerLabel.Position = UDim2.new(0, 10, 0, 160)
+timerLabel.Position = UDim2.new(0, 10, 0, 170)
 timerLabel.BackgroundTransparency = 1
 timerLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
 timerLabel.Font = Enum.Font.GothamBold
@@ -257,14 +263,14 @@ local function updateTimerLabel()
 end
 task.spawn(updateTimerLabel)
 
--- Auto-random every 22s, using timestamps
+-- Auto-random every 1.5s, using timestamps
 task.spawn(function()
     while true do
         if AUTO_RANDOM then
             local now = tick()
             if now >= nextRandomizeTime then
                 randomizeEggs()
-                nextRandomizeTime = now + 22
+                nextRandomizeTime = now + 1.5
             end
         end
         task.wait(0.1)
