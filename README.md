@@ -9,7 +9,6 @@
   <img src="kanio.png" alt="KaniOS" />
 </div>
 
----
 
 <h2 align="center">🌐 Socials</h2>
 
@@ -21,7 +20,7 @@
 
 </div>
 
----
+
 
 <h1 align="center">💻 Tech Stack</h1>
 
@@ -61,7 +60,7 @@
 
 </div>
 
----
+
 
 <h1 align="center">📊 GitHub Stats</h1>
 
@@ -71,7 +70,7 @@
   <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ripaaf&theme=radical&hide_border=false&include_all_commits=false&count_private=false&layout=compact" alt="Top languages" />
 </div>
 
----
+
 
 <h3 align="center">📌 Featured Repos</h3>
 
@@ -82,7 +81,7 @@
 
 </div>
 
----
+
 
 <h2 align="center">💰 You can help me by Donating</h2>
 
