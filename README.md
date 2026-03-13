@@ -51,8 +51,6 @@
 ![Linux](https://img.shields.io/badge/Linux-FCC624.svg?style=for-the-badge&logo=linux&logoColor=black)
 ![Figma](https://img.shields.io/badge/Figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
 ![KiCad](https://img.shields.io/badge/KiCad-314CB0.svg?style=for-the-badge&logo=kicad&logoColor=white)
-
-<!-- Hardware / Simulation / Networking -->
 ![SolidWorks](https://img.shields.io/badge/SolidWorks-D9251D.svg?style=for-the-badge&logo=dassaultsystemes&logoColor=white)
 ![Proteus](https://img.shields.io/badge/Proteus-1F6FEB.svg?style=for-the-badge&logoColor=white)
 ![Fritzing](https://img.shields.io/badge/Fritzing-0D47A1.svg?style=for-the-badge&logoColor=white)
