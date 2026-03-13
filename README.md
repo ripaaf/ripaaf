@@ -99,6 +99,6 @@
 
 <div align="right">
 <a href="https://hit-me-up-336ec.web.app">
-  <img src="https://hit-me-up-336ec.web.app/api/count/increment?url=https%3A%2F%2Fgithub.com%2Fripaaf&title=visitor&title_bg=000000&count_bg=d93636&edge_flat=true" alt="visitor" />
+  <img src="https://hit-me-up-336ec.web.app/api/count/increment?url=https%3A%2F%2Fgithub.com%2Fripaaf&title=visit&title_bg=000000&count_bg=c83c3c&edge_flat=false" alt="visit" />
 </a>
 </div>
