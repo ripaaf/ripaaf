@@ -78,6 +78,8 @@
 
 <!-- Replace REPO_NAME with your repo names (example: KaniOS, etc.) -->
 [![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=ripaaf&repo=fair-sorting&theme=radical)](https://github.com/ripaaf/fair-sorting)
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=ripaaf&repo=esp32s3-matrix-toy&theme=radical)](https://github.com/ripaaf/esp32s3-matrix-toy)
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=ripaaf&repo=anime-image-checker&theme=radical)](https://github.com/ripaaf/anime-image-checker)
 
 </div>
 
