@@ -23,10 +23,6 @@
 
 
 <h1 align="center">💻 Tech Stack</h1>
-
-<div align="center">
-
-
 ### Languages
 ![C](https://img.shields.io/badge/C-00599C.svg?style=for-the-badge&logo=c&logoColor=white)
 ![C#](https://img.shields.io/badge/C%23-239120.svg?style=for-the-badge&logo=csharp&logoColor=white)
@@ -94,8 +90,6 @@
 ![SolidWorks](https://img.shields.io/badge/SolidWorks-D9251D.svg?style=for-the-badge&logo=dassaultsystemes&logoColor=white)
 ![Proteus](https://img.shields.io/badge/Proteus-1F6FEB.svg?style=for-the-badge&logoColor=white)
 ![Fritzing](https://img.shields.io/badge/Fritzing-0D47A1.svg?style=for-the-badge&logoColor=white)
-</div>
-
 
 
 <h1 align="center">📊 GitHub Stats</h1>
