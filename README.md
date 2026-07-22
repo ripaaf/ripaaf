@@ -63,7 +63,7 @@
 <h1 align="center">📊 GitHub Stats</h1>
 
 <div align="center">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=ripaaf&theme=maroongold" alt="GitHub stats" /><br/>
+  <img src="https://profile-summary-jet.vercel.app/api/cards/stats?username=ripaaf&theme=maroongold&animation=rise" alt="GitHub stats" /><br/>
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=ripaaf&theme=radical&hide_border=false" alt="GitHub streak" /><br/>
   <img src="https://profile-summary-jet.vercel.app/api/cards/repos-per-language?username=ripaaf&theme=maroongold&animation=rise" alt="Top languages" />
 </div>
