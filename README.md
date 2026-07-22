@@ -63,7 +63,7 @@
 <h1 align="center">📊 GitHub Stats</h1>
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=ripaaf&theme=radical&hide_border=false&include_all_commits=false&count_private=false" alt="GitHub stats" /><br/>
+  <img src="!https://github-profile-summary-cards.vercel.app/api/cards/stats?username=ripaaf&theme=maroongold" alt="GitHub stats" /><br/>
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=ripaaf&theme=radical&hide_border=false" alt="GitHub streak" /><br/>
   <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ripaaf&theme=radical&hide_border=false&include_all_commits=false&count_private=false&layout=compact" alt="Top languages" />
 </div>
