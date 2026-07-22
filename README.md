@@ -23,6 +23,7 @@
 
 
 <h1 align="center">💻 Tech Stack</h1>
+
 ### Languages
 ![C](https://img.shields.io/badge/C-00599C.svg?style=for-the-badge&logo=c&logoColor=white)
 ![C#](https://img.shields.io/badge/C%23-239120.svg?style=for-the-badge&logo=csharp&logoColor=white)
